@@ -1,0 +1,21 @@
+FROM armv7/armhf-debian:latest
+MAINTAINER <daniel.jam.finneran@hpe.com>
+
+RUN apt-get update
+RUN apt-get install -y make wget gcc libssl-dev libjson-c-dev perl-modules libjson0 libxml2-dev libxml2
+
+RUN wget -O bind.tar.gz https://www.isc.org/downloads/file/bind-9-10-4-p2/?version=tar-gz
+
+RUN tar -xvzf bind.tar.gz
+
+WORKDIR /bind-9.10.4-P2
+RUN ./configure --with-openssl --enable-threads --with-libxml2 --disable-linux-caps --with-libjson=yes
+RUN make
+RUN make install
+
+EXPOSE 53
+
+RUN useradd bind
+
+CMD ["/usr/local/sbin/named", "-g", "-c", "/etc/bind/named.conf"]
+

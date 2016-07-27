@@ -7,11 +7,7 @@ RUN apt-get update
 
 RUN apt-get upgrade -y
 
-RUN apt-get install -y bind9
-
 COPY bind9_9.10.3.dfsg.P4-10.1_armhf.deb /
-
-RUN apt-get install -y libjson-c3 dialog
 
 RUN dpkg -i bind9_9.10.3.dfsg.P4-10.1_armhf.deb 
 
