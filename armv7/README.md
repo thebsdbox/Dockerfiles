@@ -9,16 +9,19 @@ This is a relatively straight forward set of actions, consisting of two steps.
 
 ## Build goarm image
 Download the goarm Dockerfile from above and the golang binaries from https://golang.org/dl/ in particular go1.7.3.linux-armv6l.tar.gz, to the location where your Dockerfile has been downloaded too (if you use a newer binary archive then tweak the goarm Dockerfile accordingly.
-```$ docker build -t goarm .
-```
+
+`$ docker build -t goarm .`
 
 ## Build InfraKit
 Download the InfraKit arm Dockerfile from above and do a Docker build
+
 `$ docker build -t infrakit-arm .`
 
 ## Deploy infrastructure from a Raspberry Pi
+
 ` $ docker run -it infrakit-arm bash`
 ...
+
 ```
 $ build/infrakit
 infrakit cli
