@@ -18,5 +18,5 @@ RUN apt-get update -qq && \
 
 RUN git clone https://github.com/docker/infrakit.git
 WORKDIR /root/go/src/github.com/docker/infrakit
-# Had to re-specify the path AGAIN (bug?)
+
 RUN export GOPATH=/root/go; make binaries
