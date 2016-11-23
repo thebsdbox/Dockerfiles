@@ -1,4 +1,15 @@
-FROM oneview:latest
+#DockerFile to build Infrakit
 
-RUN cat /var/lib/gems/2.1.0/gems/chef-provisioning-oneview-1.2.0/lib/chef/provisioning/create_machine.rb | grep -v san > /tmp/fix
-RUN mv /tmp/fix /var/lib/gems/2.1.0/gems/chef-provisioning-oneview-1.2.0/lib/chef/provisioning/create_machine.rb
+FROM golang:latest
+MAINTAINER <daniel.jam.finneran@hpe.com>
+
+RUN export PATH=/usr/local/go/bin:$PATH
+RUN mkdir -p /root/go
+RUN export GOPATH=/root/go
+RUN export PATH=$GOPATH/bin:$PATH
+RUN mkdir -p /root/go/src/github.com/docker
+WORKDIR /root/go/src/github.com/docker
+RUN git clone https://github.com/docker/infrakit.git
+WORKDIR /root/go/src/github.com/docker/infrakit
+# Had to re-specify the path AGAIN (bug?)
+RUN export GOPATH=/root/go; make binaries
